@@ -1,0 +1,1775 @@
+Captured UTC: 2026-10-23T17:41:21+00:00
+Requested CPU=0 REPS=5 MS=100 WARMUPS=2 SEED=42 PERF=1
+Isolation: affinity only; no CPU isolation, governor, SMT, NUMA, or host settings changed.
+
+$ uname -a
+Linux DESKTOP-1DSGRV7 6.18.33.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun 18 21:54:43 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+
+$ cat /etc/os-release
+PRETTY_NAME="Ubuntu 24.04.4 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.4 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+
+$ lscpu
+Architecture:                            x86_64
+CPU op-mode(s):                          32-bit, 64-bit
+Address sizes:                           48 bits physical, 48 bits virtual
+Byte Order:                              Little Endian
+CPU(s):                                  16
+On-line CPU(s) list:                     0-15
+Vendor ID:                               AuthenticAMD
+Model name:                              AMD Ryzen 7 Pro 7735U with Radeon Graphics
+CPU family:                              25
+Model:                                   68
+Thread(s) per core:                      2
+Core(s) per socket:                      8
+Socket(s):                               1
+Stepping:                                1
+BogoMIPS:                                5389.68
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+Hypervisor vendor:                       Microsoft
+Virtualization type:                     full
+L1d cache:                               256 KiB (8 instances)
+L1i cache:                               256 KiB (8 instances)
+L2 cache:                                4 MiB (8 instances)
+L3 cache:                                16 MiB (1 instance)
+NUMA node(s):                            1
+NUMA node0 CPU(s):                       0-15
+Vulnerability Gather data sampling:      Not affected
+Vulnerability Ghostwrite:                Not affected
+Vulnerability Indirect target selection: Not affected
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Not affected
+Vulnerability Old microcode:             Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Not affected
+Vulnerability Spec rstack overflow:      Vulnerable: Safe RET, no microcode
+Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; Retpolines; IBPB conditional; IBRS_FW; STIBP always-on; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Vulnerable: No microcode
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+
+$ lscpu -C
+NAME ONE-SIZE ALL-SIZE WAYS TYPE        LEVEL  SETS PHY-LINE COHERENCY-SIZE
+L1d       32K     256K    8 Data            1    64        1             64
+L1i       32K     256K    8 Instruction     1    64        1             64
+L2       512K       4M    8 Unified         2  1024        1             64
+L3        16M      16M   16 Unified         3 16384        1             64
+
+$ cat /proc/cpuinfo
+processor	: 0
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 0
+cpu cores	: 8
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 0
+cpu cores	: 8
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 1
+cpu cores	: 8
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 1
+cpu cores	: 8
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+processor	: 4
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 2
+cpu cores	: 8
+apicid		: 4
+initial apicid	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+processor	: 5
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 2
+cpu cores	: 8
+apicid		: 5
+initial apicid	: 5
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+processor	: 6
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 3
+cpu cores	: 8
+apicid		: 6
+initial apicid	: 6
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+processor	: 7
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 3
+cpu cores	: 8
+apicid		: 7
+initial apicid	: 7
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+processor	: 8
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 4
+cpu cores	: 8
+apicid		: 8
+initial apicid	: 8
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+processor	: 9
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 4
+cpu cores	: 8
+apicid		: 9
+initial apicid	: 9
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+processor	: 10
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 5
+cpu cores	: 8
+apicid		: 10
+initial apicid	: 10
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+processor	: 11
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 5
+cpu cores	: 8
+apicid		: 11
+initial apicid	: 11
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+processor	: 12
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 6
+cpu cores	: 8
+apicid		: 12
+initial apicid	: 12
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+processor	: 13
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 6
+cpu cores	: 8
+apicid		: 13
+initial apicid	: 13
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+processor	: 14
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 7
+cpu cores	: 8
+apicid		: 14
+initial apicid	: 14
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+processor	: 15
+vendor_id	: AuthenticAMD
+cpu family	: 25
+model		: 68
+model name	: AMD Ryzen 7 Pro 7735U with Radeon Graphics
+stepping	: 1
+microcode	: 0xffffffff
+cpu MHz		: 2694.841
+cache size	: 512 KB
+physical id	: 0
+siblings	: 16
+core id		: 7
+cpu cores	: 8
+apicid		: 15
+initial apicid	: 15
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat umip vaes vpclmulqdq rdpid fsrm
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass srso ibpb_no_ret spectre_v2_user tsa
+bogomips	: 5389.68
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 48 bits physical, 48 bits virtual
+power management:
+
+
+$ cat /proc/meminfo
+MemTotal:        7497376 kB
+MemFree:         2536692 kB
+MemAvailable:    4429320 kB
+Buffers:           38408 kB
+Cached:          1925156 kB
+SwapCached:            0 kB
+Active:           760732 kB
+Inactive:        3602676 kB
+Active(anon):       2892 kB
+Inactive(anon):  2400624 kB
+Active(file):     757840 kB
+Inactive(file):  1202052 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:       2097152 kB
+SwapFree:        2097152 kB
+Dirty:               140 kB
+Writeback:             0 kB
+AnonPages:       2400216 kB
+Mapped:           545600 kB
+Shmem:              3640 kB
+KReclaimable:     127032 kB
+Slab:             228116 kB
+SReclaimable:     127032 kB
+SUnreclaim:       101084 kB
+KernelStack:       10128 kB
+PageTables:        47468 kB
+SecPageTables:         0 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     5845840 kB
+Committed_AS:    4369468 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:       38128 kB
+VmallocChunk:          0 kB
+Percpu:             6400 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+FileHugePages:    147456 kB
+FilePmdMapped:         0 kB
+Unaccepted:            0 kB
+Balloon:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+DirectMap4k:       66560 kB
+DirectMap2M:     5582848 kB
+DirectMap1G:    10485760 kB
+
+$ free -h
+               total        used        free      shared  buff/cache   available
+Mem:           7.2Gi       2.9Gi       2.4Gi       3.6Mi       2.0Gi       4.2Gi
+Swap:          2.0Gi          0B       2.0Gi
+
+$ getconf PAGESIZE
+4096
+
+$ taskset -pc 74191
+pid 74191's current affinity list: 0-15
+
+$ numactl --hardware
+./environment.sh: line 4: numactl: command not found
+
+$ cat /proc/self/status
+Name:	cat
+Umask:	0022
+State:	R (running)
+Tgid:	74204
+Ngid:	0
+Pid:	74204
+PPid:	74191
+TracerPid:	0
+Uid:	1000	1000	1000	1000
+Gid:	1000	1000	1000	1000
+FDSize:	256
+Groups:	4 24 27 30 46 100 1000 
+NStgid:	74204
+NSpid:	74204
+NSpgid:	74168
+NSsid:	67995
+Kthread:	0
+VmPeak:	    3284 kB
+VmSize:	    3284 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	    1792 kB
+VmRSS:	    1792 kB
+RssAnon:	     124 kB
+RssFile:	    1668 kB
+RssShmem:	       0 kB
+VmData:	     360 kB
+VmStk:	     136 kB
+VmExe:	      20 kB
+VmLib:	    1752 kB
+VmPTE:	      48 kB
+VmSwap:	       0 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+untag_mask:	0xffffffffffffffff
+Threads:	1
+SigQ:	1/29243
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000000000
+SigCgt:	0000000000000000
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	thread vulnerable
+SpeculationIndirectBranch:	conditional enabled
+Cpus_allowed:	ffff
+Cpus_allowed_list:	0-15
+Mems_allowed:	00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	0
+nonvoluntary_ctxt_switches:	0
+
+$ cat /proc/self/numa_maps
+5b030f363000 default file=/usr/bin/cat mapped=2 N0=2 kernelpagesize_kB=4
+5b030f365000 default file=/usr/bin/cat mapped=5 N0=5 kernelpagesize_kB=4
+5b030f36a000 default file=/usr/bin/cat mapped=2 N0=2 kernelpagesize_kB=4
+5b030f36c000 default file=/usr/bin/cat anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
+5b030f36d000 default file=/usr/bin/cat anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
+5b031966a000 default heap anon=5 dirty=5 active=0 N0=5 kernelpagesize_kB=4
+7e24c2a00000 default file=/usr/lib/x86_64-linux-gnu/libc.so.6 mapped=40 mapmax=40 N0=40 kernelpagesize_kB=4
+7e24c2a28000 default file=/usr/lib/x86_64-linux-gnu/libc.so.6 mapped=216 mapmax=43 N0=216 kernelpagesize_kB=4
+7e24c2bb1000 default file=/usr/lib/x86_64-linux-gnu/libc.so.6 mapped=47 mapmax=43 N0=47 kernelpagesize_kB=4
+7e24c2c00000 default file=/usr/lib/x86_64-linux-gnu/libc.so.6 anon=4 dirty=4 active=0 N0=4 kernelpagesize_kB=4
+7e24c2c04000 default file=/usr/lib/x86_64-linux-gnu/libc.so.6 anon=2 dirty=2 active=0 N0=2 kernelpagesize_kB=4
+7e24c2c06000 default anon=5 dirty=5 active=0 N0=5 kernelpagesize_kB=4
+7e24c2ce2000 default anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
+7e24c2d04000 default file=/usr/lib/locale/C.utf8/LC_CTYPE mapped=32 mapmax=12 N0=32 kernelpagesize_kB=4
+7e24c2d5d000 default file=/usr/lib/locale/C.utf8/LC_NUMERIC mapped=1 mapmax=10 N0=1 kernelpagesize_kB=4
+7e24c2d5e000 default file=/usr/lib/locale/C.utf8/LC_TIME mapped=1 mapmax=10 N0=1 kernelpagesize_kB=4
+7e24c2d5f000 default file=/usr/lib/locale/C.utf8/LC_COLLATE mapped=1 mapmax=10 N0=1 kernelpagesize_kB=4
+7e24c2d60000 default file=/usr/lib/locale/C.utf8/LC_MONETARY mapped=1 mapmax=10 N0=1 kernelpagesize_kB=4
+7e24c2d61000 default file=/usr/lib/locale/C.utf8/LC_MESSAGES/SYS_LC_MESSAGES mapped=1 mapmax=10 N0=1 kernelpagesize_kB=4
+7e24c2d62000 default file=/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache mapped=7 mapmax=13 N0=7 kernelpagesize_kB=4
+7e24c2d69000 default anon=2 dirty=2 active=0 N0=2 kernelpagesize_kB=4
+7e24c2d6c000 default file=/usr/lib/locale/C.utf8/LC_PAPER mapped=1 mapmax=10 N0=1 kernelpagesize_kB=4
+7e24c2d6d000 default file=/usr/lib/locale/C.utf8/LC_NAME mapped=1 mapmax=10 N0=1 kernelpagesize_kB=4
+7e24c2d6e000 default file=/usr/lib/locale/C.utf8/LC_ADDRESS mapped=1 mapmax=10 N0=1 kernelpagesize_kB=4
+7e24c2d6f000 default file=/usr/lib/locale/C.utf8/LC_TELEPHONE mapped=1 mapmax=10 N0=1 kernelpagesize_kB=4
+7e24c2d70000 default file=/usr/lib/locale/C.utf8/LC_MEASUREMENT mapped=1 mapmax=10 N0=1 kernelpagesize_kB=4
+7e24c2d71000 default file=/usr/lib/locale/C.utf8/LC_IDENTIFICATION mapped=1 mapmax=10 N0=1 kernelpagesize_kB=4
+7e24c2d72000 default anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
+7e24c2d74000 default
+7e24c2d78000 default
+7e24c2d7a000 default
+7e24c2d7c000 default file=/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 mapped=1 mapmax=40 N0=1 kernelpagesize_kB=4
+7e24c2d7d000 default file=/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 mapped=43 mapmax=41 N0=43 kernelpagesize_kB=4
+7e24c2da8000 default file=/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 mapped=10 mapmax=40 N0=10 kernelpagesize_kB=4
+7e24c2db2000 default file=/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 anon=2 dirty=2 active=0 N0=2 kernelpagesize_kB=4
+7e24c2db4000 default file=/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 anon=2 dirty=2 active=0 N0=2 kernelpagesize_kB=4
+7fff9185f000 default stack anon=3 dirty=3 active=2 N0=3 kernelpagesize_kB=4
+
+$ cat /proc/sys/kernel/perf_event_paranoid
+2
+
+$ ls /sys/bus/event_source/devices
+breakpoint
+cpu
+kprobe
+msr
+software
+tracepoint
+uprobe
+
+$ cat /sys/devices/system/cpu/smt/active /sys/devices/system/cpu/smt/control
+1
+on
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index0/level
+1
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index1/level
+1
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index2/level
+2
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index3/level
+3
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index0/type
+Data
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index1/type
+Instruction
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index2/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index3/type
+Unified
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index0/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index1/size
+32K
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index2/size
+512K
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index3/size
+16384K
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index0/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index1/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index2/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index3/coherency_line_size
+64
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index0/shared_cpu_list
+0-1
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index1/shared_cpu_list
+0-1
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index2/shared_cpu_list
+0-1
+
+$ cat /sys/devices/system/cpu/cpu0/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index0/shared_cpu_list
+0-1
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index1/shared_cpu_list
+0-1
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index2/shared_cpu_list
+0-1
+
+$ cat /sys/devices/system/cpu/cpu1/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index0/shared_cpu_list
+10-11
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index1/shared_cpu_list
+10-11
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index2/shared_cpu_list
+10-11
+
+$ cat /sys/devices/system/cpu/cpu10/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index0/shared_cpu_list
+10-11
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index1/shared_cpu_list
+10-11
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index2/shared_cpu_list
+10-11
+
+$ cat /sys/devices/system/cpu/cpu11/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index0/shared_cpu_list
+12-13
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index1/shared_cpu_list
+12-13
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index2/shared_cpu_list
+12-13
+
+$ cat /sys/devices/system/cpu/cpu12/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index0/shared_cpu_list
+12-13
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index1/shared_cpu_list
+12-13
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index2/shared_cpu_list
+12-13
+
+$ cat /sys/devices/system/cpu/cpu13/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index0/shared_cpu_list
+14-15
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index1/shared_cpu_list
+14-15
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index2/shared_cpu_list
+14-15
+
+$ cat /sys/devices/system/cpu/cpu14/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index0/shared_cpu_list
+14-15
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index1/shared_cpu_list
+14-15
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index2/shared_cpu_list
+14-15
+
+$ cat /sys/devices/system/cpu/cpu15/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index0/shared_cpu_list
+2-3
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index1/shared_cpu_list
+2-3
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index2/shared_cpu_list
+2-3
+
+$ cat /sys/devices/system/cpu/cpu2/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index0/shared_cpu_list
+2-3
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index1/shared_cpu_list
+2-3
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index2/shared_cpu_list
+2-3
+
+$ cat /sys/devices/system/cpu/cpu3/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index0/shared_cpu_list
+4-5
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index1/shared_cpu_list
+4-5
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index2/shared_cpu_list
+4-5
+
+$ cat /sys/devices/system/cpu/cpu4/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index0/shared_cpu_list
+4-5
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index1/shared_cpu_list
+4-5
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index2/shared_cpu_list
+4-5
+
+$ cat /sys/devices/system/cpu/cpu5/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index0/shared_cpu_list
+6-7
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index1/shared_cpu_list
+6-7
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index2/shared_cpu_list
+6-7
+
+$ cat /sys/devices/system/cpu/cpu6/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index0/shared_cpu_list
+6-7
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index1/shared_cpu_list
+6-7
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index2/shared_cpu_list
+6-7
+
+$ cat /sys/devices/system/cpu/cpu7/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index0/shared_cpu_list
+8-9
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index1/shared_cpu_list
+8-9
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index2/shared_cpu_list
+8-9
+
+$ cat /sys/devices/system/cpu/cpu8/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index0/shared_cpu_list
+8-9
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index1/shared_cpu_list
+8-9
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index2/shared_cpu_list
+8-9
+
+$ cat /sys/devices/system/cpu/cpu9/cache/index3/shared_cpu_list
+0-15
+
+$ cat /sys/kernel/mm/transparent_hugepage/enabled
+always [madvise] never
+
+$ cat /sys/kernel/mm/transparent_hugepage/defrag
+always defer defer+madvise [madvise] never
+
+$ cat /sys/kernel/mm/transparent_hugepage/hpage_pmd_size
+2097152
+
+$ cat /sys/kernel/mm/transparent_hugepage/hugepages-1024kB/enabled
+always inherit madvise [never]
+
+$ cat /sys/kernel/mm/transparent_hugepage/hugepages-128kB/enabled
+always inherit madvise [never]
+
+$ cat /sys/kernel/mm/transparent_hugepage/hugepages-16kB/enabled
+always inherit madvise [never]
+
+$ cat /sys/kernel/mm/transparent_hugepage/hugepages-2048kB/enabled
+always [inherit] madvise never
+
+$ cat /sys/kernel/mm/transparent_hugepage/hugepages-256kB/enabled
+always inherit madvise [never]
+
+$ cat /sys/kernel/mm/transparent_hugepage/hugepages-32kB/enabled
+always inherit madvise [never]
+
+$ cat /sys/kernel/mm/transparent_hugepage/hugepages-512kB/enabled
+always inherit madvise [never]
+
+$ cat /sys/kernel/mm/transparent_hugepage/hugepages-64kB/enabled
+always inherit madvise [never]
+CACHE level=1 type=Data bytes=32768
+CACHE level=1 type=Instruction bytes=32768
+CACHE level=2 type=Unified bytes=524288
+CACHE level=3 type=Unified bytes=16777216
+
+$ g++ --version
+g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+$ make --version
+GNU Make 4.3
+Built for x86_64-pc-linux-gnu
+Copyright (C) 1988-2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+$ make -n -B benchmark
+g++ -O3 -std=c++17 -Wall -Wextra -Wpedantic benchmark.cpp -o benchmark
+
+$ bash --version
+GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+
+This is free software; you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+$ python3 --version
+Python 3.12.3
+
+$ python3 -c import\ pandas\,\ matplotlib\;\ print\(\"pandas\"\,\ pandas.__version__\,\ \"matplotlib\"\,\ matplotlib.__version__\)
+pandas 3.1.0 matplotlib 3.11.2
+
+$ perf --version
+./environment.sh: line 4: perf: command not found
+
+$ ./benchmark --probe-counters
+cycles=ready|instructions=ready|cache_references=ready|cache_misses=ready|dtlb_loads=ready|dtlb_load_misses=ready
+
+$ which mlc
+
+$ wsl.exe --version
+W S L   v e r s i o n :   2 . 7 . 1 1 . 0  
+ K e r n e l   v e r s i o n :   6 . 1 8 . 3 3 . 2 - 2  
+ W S L g   v e r s i o n :   1 . 0 . 7 3 . 2  
+ M S R D C   v e r s i o n :   1 . 2 . 7 2 1 4  
+ D i r e c t 3 D   v e r s i o n :   1 . 6 1 1 . 1 - 8 1 5 2 8 5 1 1  
+ D X C o r e   v e r s i o n :   1 0 . 0 . 2 6 1 0 0 . 1 - 2 4 0 3 3 1 - 1 4 3 5 . g e - r e l e a s e  
+ W i n d o w s   v e r s i o n :   1 0 . 0 . 2 6 2 0 0 . 9 7 1 1  
+ 
+$ wsl.exe --status
+D e f a u l t   D i s t r i b u t i o n :   U b u n t u - 2 4 . 0 4  
+ D e f a u l t   V e r s i o n :   2  
+ W S L 1   i s   n o t   s u p p o r t e d   w i t h   y o u r   c u r r e n t   m a c h i n e   c o n f i g u r a t i o n .  
+ P l e a s e   e n a b l e   t h e   " W i n d o w s   S u b s y s t e m   f o r   L i n u x "   o p t i o n a l   c o m p o n e n t   t o   u s e   W S L 1 .  
+ 
+$ cat /proc/version /proc/sys/kernel/osrelease
+Linux version 6.18.33.2-microsoft-standard-WSL2 (root@f1bbfb02316b) (gcc (GCC) 13.2.0, GNU ld (GNU Binutils) 2.41) #1 SMP PREEMPT_DYNAMIC Thu Jun 18 21:54:43 UTC 2026
+6.18.33.2-microsoft-standard-WSL2
+
+$ sha256sum benchmark.cpp benchmark Makefile run.sh environment.sh analyze.py
+b7eff83ae22ade6825a0906249d55d039ab3f3cc6093743d9539e5abbc5ddf30  benchmark.cpp
+1e03a5f73d8a3eb650e5fc7b1bdb097f5439f95a6cde91232138693ee938eeac  benchmark
+0ffcd9351b7f63c8ea66b7c7f6742b17bd51384fff9861e8eb4ed5d3042c4251  Makefile
+df6378bc97cbff55387963482597d0fdf1833957883e01829ec7da76ad6bdc2a  run.sh
+1b4a555d5d63b1a1800d8c32d8a98e0bcf76a167b23e8f0cad63ab116465ac71  environment.sh
+c3372d7664a3ca06834760bd0d58fe3f7e1e9321b9f196c2f730352cca92d477  analyze.py
+
+Host RAM, host power policy, hypervisor PMU fidelity and host activity are not established by guest probes.

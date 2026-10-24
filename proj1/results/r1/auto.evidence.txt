@@ -1,0 +1,43 @@
+Kernel-only GCC loop reports:
+bench.cpp:29:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:29:30: optimized: loop vectorized using 8 byte vectors
+bench.cpp:31:30: missed: couldn't vectorize loop
+bench.cpp:48:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:48:30: optimized: loop vectorized using 8 byte vectors
+bench.cpp:50:30: missed: couldn't vectorize loop
+bench.cpp:39:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:41:30: optimized: loop vectorized using 8 byte vectors
+bench.cpp:29:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:31:30: missed: couldn't vectorize loop
+bench.cpp:48:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:50:30: missed: couldn't vectorize loop
+bench.cpp:39:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:41:30: optimized: loop vectorized using 16 byte vectors
+
+float saxpy<float>(float*, float*, float*, unsigned long, unsigned long)
+  packed arithmetic instructions: 4
+    35c8:	mulps  %xmm1,%xmm0
+    35cb:	addps  %xmm2,%xmm0
+
+float mul<float>(float*, float*, float*, unsigned long, unsigned long)
+  packed arithmetic instructions: 2
+    36c1:	mulps  %xmm2,%xmm0
+
+float dot<float>(float*, float*, float*, unsigned long, unsigned long)
+  packed arithmetic instructions: 6
+    3793:	mulps  %xmm2,%xmm0
+    3796:	addps  %xmm0,%xmm1
+
+double saxpy<double>(double*, double*, double*, unsigned long, unsigned long)
+  packed arithmetic instructions: 2
+    3aa2:	mulpd  %xmm1,%xmm0
+    3aa6:	addpd  %xmm2,%xmm0
+
+double mul<double>(double*, double*, double*, unsigned long, unsigned long)
+  packed arithmetic instructions: 1
+    3b5b:	mulpd  %xmm1,%xmm0
+
+double dot<double>(double*, double*, double*, unsigned long, unsigned long)
+  packed arithmetic instructions: 6
+    3bfd:	mulpd  %xmm1,%xmm0
+    3c01:	addpd  %xmm0,%xmm2

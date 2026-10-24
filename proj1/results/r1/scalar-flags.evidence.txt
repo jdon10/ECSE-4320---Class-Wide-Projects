@@ -1,0 +1,3 @@
+g++ -std=c++17 -O3 -Wall -Wextra -Wpedantic -fno-lto -fno-math-errno -fno-trapping-math -fno-signed-zeros -fassociative-math -ffp-contract=fast -fno-tree-loop-vectorize -fno-tree-slp-vectorize -Q --help=optimizers
+  -ftree-loop-vectorize       		[disabled]
+  -ftree-slp-vectorize        		[disabled]

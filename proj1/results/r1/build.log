@@ -1,0 +1,7 @@
+mkdir -p build
+rm -f build/scalar.vec
+g++ -std=c++17 -O3 -Wall -Wextra -Wpedantic -fno-lto -fno-math-errno -fno-trapping-math -fno-signed-zeros -fassociative-math -ffp-contract=fast -fno-tree-loop-vectorize -fno-tree-slp-vectorize -DBUILD_NAME='"scalar"' -fopt-info-vec-all=build/scalar.vec bench.cpp -o build/scalar
+rm -f build/auto.vec
+g++ -std=c++17 -O3 -Wall -Wextra -Wpedantic -fno-lto -fno-math-errno -fno-trapping-math -fno-signed-zeros -fassociative-math -ffp-contract=fast -ftree-loop-vectorize -ftree-slp-vectorize -DBUILD_NAME='"auto"' -fopt-info-vec-all=build/auto.vec bench.cpp -o build/auto
+rm -f build/native.vec
+g++ -std=c++17 -O3 -Wall -Wextra -Wpedantic -fno-lto -fno-math-errno -fno-trapping-math -fno-signed-zeros -fassociative-math -ffp-contract=fast -ftree-loop-vectorize -ftree-slp-vectorize -march=native -mtune=native -mprefer-vector-width=512 -DBUILD_NAME='"native"' -fopt-info-vec-all=build/native.vec bench.cpp -o build/native

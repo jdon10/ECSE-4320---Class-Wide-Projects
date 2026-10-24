@@ -1,0 +1,2 @@
+python3 check.py
+PASS: 1302 reference/guard cases plus 13 invalid-argument cases. No timings collected.

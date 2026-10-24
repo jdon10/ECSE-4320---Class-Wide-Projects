@@ -1,0 +1,19 @@
+Kernel-only GCC loop reports:
+
+float saxpy<float>(float*, float*, float*, unsigned long, unsigned long)
+  packed arithmetic instructions: 0
+
+float mul<float>(float*, float*, float*, unsigned long, unsigned long)
+  packed arithmetic instructions: 0
+
+float dot<float>(float*, float*, float*, unsigned long, unsigned long)
+  packed arithmetic instructions: 0
+
+double saxpy<double>(double*, double*, double*, unsigned long, unsigned long)
+  packed arithmetic instructions: 0
+
+double mul<double>(double*, double*, double*, unsigned long, unsigned long)
+  packed arithmetic instructions: 0
+
+double dot<double>(double*, double*, double*, unsigned long, unsigned long)
+  packed arithmetic instructions: 0

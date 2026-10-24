@@ -1,0 +1,91 @@
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 4096 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 8192 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 16384 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 32768 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 65536 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 131072 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 262144 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 524288 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 1048576 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 2097152 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 4194304 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 8388608 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 16777216 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 33554432 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 67108864 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 134217728 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment latency --size 268435456 --stride 64
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern sequential --size 268435456 --stride 8 --granularity 8 --read 100
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern random --size 268435456 --stride 8 --granularity 8 --read 100
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 64 --granularity 8 --read 100
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 256 --granularity 8 --read 100
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 1024 --granularity 8 --read 100
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern sequential --size 268435456 --stride 8 --granularity 8 --read 0
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern random --size 268435456 --stride 8 --granularity 8 --read 0
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 64 --granularity 8 --read 0
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 256 --granularity 8 --read 0
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 1024 --granularity 8 --read 0
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern sequential --size 268435456 --stride 8 --granularity 8 --read 70
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern random --size 268435456 --stride 8 --granularity 8 --read 70
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 64 --granularity 8 --read 70
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 256 --granularity 8 --read 70
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 1024 --granularity 8 --read 70
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern sequential --size 268435456 --stride 8 --granularity 8 --read 50
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern random --size 268435456 --stride 8 --granularity 8 --read 50
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 64 --granularity 8 --read 50
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 256 --granularity 8 --read 50
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 1024 --granularity 8 --read 50
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern sequential --size 268435456 --stride 64 --granularity 64 --read 100
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern random --size 268435456 --stride 64 --granularity 64 --read 100
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 64 --granularity 64 --read 100
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 256 --granularity 64 --read 100
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 1024 --granularity 64 --read 100
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern sequential --size 268435456 --stride 64 --granularity 64 --read 0
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern random --size 268435456 --stride 64 --granularity 64 --read 0
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 64 --granularity 64 --read 0
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 256 --granularity 64 --read 0
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 1024 --granularity 64 --read 0
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern sequential --size 268435456 --stride 64 --granularity 64 --read 70
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern random --size 268435456 --stride 64 --granularity 64 --read 70
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 64 --granularity 64 --read 70
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 256 --granularity 64 --read 70
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 1024 --granularity 64 --read 70
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern sequential --size 268435456 --stride 64 --granularity 64 --read 50
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern random --size 268435456 --stride 64 --granularity 64 --read 50
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 64 --granularity 64 --read 50
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 256 --granularity 64 --read 50
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pattern --pattern stride --size 268435456 --stride 1024 --granularity 64 --read 50
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment knee --size 268435456 --intensity 1
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment knee --size 268435456 --intensity 2
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment knee --size 268435456 --intensity 4
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment knee --size 268435456 --intensity 8
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment knee --size 268435456 --intensity 16
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment knee --size 268435456 --intensity 32
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 65536 --stride 4096 --pages normal
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 131072 --stride 4096 --pages normal
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 262144 --stride 4096 --pages normal
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 524288 --stride 4096 --pages normal
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 1048576 --stride 4096 --pages normal
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 2097152 --stride 4096 --pages normal
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 4194304 --stride 4096 --pages normal
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 8388608 --stride 4096 --pages normal
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 16777216 --stride 4096 --pages normal
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 33554432 --stride 4096 --pages normal
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 67108864 --stride 4096 --pages normal
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 134217728 --stride 4096 --pages normal
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 268435456 --stride 4096 --pages normal
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 65536 --stride 4096 --pages huge
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 131072 --stride 4096 --pages huge
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 262144 --stride 4096 --pages huge
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 524288 --stride 4096 --pages huge
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 1048576 --stride 4096 --pages huge
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 2097152 --stride 4096 --pages huge
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 4194304 --stride 4096 --pages huge
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 8388608 --stride 4096 --pages huge
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 16777216 --stride 4096 --pages huge
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 33554432 --stride 4096 --pages huge
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 67108864 --stride 4096 --pages huge
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 134217728 --stride 4096 --pages huge
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment tlb --size 268435456 --stride 4096 --pages huge
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pitfall --pattern sequential --size 16384 --stride 8
+./benchmark --cpu 0 --reps 5 --ms 100 --warmups 2 --seed 42 --perf --experiment pitfall --pattern sequential --size 268435456 --stride 8

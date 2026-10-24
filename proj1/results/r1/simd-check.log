@@ -1,0 +1,120 @@
+Kernel-only GCC loop reports:
+
+float saxpy<float>(float*, float*, float*, unsigned long, unsigned long)
+  packed arithmetic instructions: 0
+
+float mul<float>(float*, float*, float*, unsigned long, unsigned long)
+  packed arithmetic instructions: 0
+
+float dot<float>(float*, float*, float*, unsigned long, unsigned long)
+  packed arithmetic instructions: 0
+
+double saxpy<double>(double*, double*, double*, unsigned long, unsigned long)
+  packed arithmetic instructions: 0
+
+double mul<double>(double*, double*, double*, unsigned long, unsigned long)
+  packed arithmetic instructions: 0
+
+double dot<double>(double*, double*, double*, unsigned long, unsigned long)
+  packed arithmetic instructions: 0
+
+Kernel-only GCC loop reports:
+bench.cpp:29:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:29:30: optimized: loop vectorized using 8 byte vectors
+bench.cpp:31:30: missed: couldn't vectorize loop
+bench.cpp:48:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:48:30: optimized: loop vectorized using 8 byte vectors
+bench.cpp:50:30: missed: couldn't vectorize loop
+bench.cpp:39:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:41:30: optimized: loop vectorized using 8 byte vectors
+bench.cpp:29:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:31:30: missed: couldn't vectorize loop
+bench.cpp:48:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:50:30: missed: couldn't vectorize loop
+bench.cpp:39:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:41:30: optimized: loop vectorized using 16 byte vectors
+
+float saxpy<float>(float*, float*, float*, unsigned long, unsigned long)
+  packed arithmetic instructions: 4
+    35c8:	mulps  %xmm1,%xmm0
+    35cb:	addps  %xmm2,%xmm0
+
+float mul<float>(float*, float*, float*, unsigned long, unsigned long)
+  packed arithmetic instructions: 2
+    36c1:	mulps  %xmm2,%xmm0
+
+float dot<float>(float*, float*, float*, unsigned long, unsigned long)
+  packed arithmetic instructions: 6
+    3793:	mulps  %xmm2,%xmm0
+    3796:	addps  %xmm0,%xmm1
+
+double saxpy<double>(double*, double*, double*, unsigned long, unsigned long)
+  packed arithmetic instructions: 2
+    3aa2:	mulpd  %xmm1,%xmm0
+    3aa6:	addpd  %xmm2,%xmm0
+
+double mul<double>(double*, double*, double*, unsigned long, unsigned long)
+  packed arithmetic instructions: 1
+    3b5b:	mulpd  %xmm1,%xmm0
+
+double dot<double>(double*, double*, double*, unsigned long, unsigned long)
+  packed arithmetic instructions: 6
+    3bfd:	mulpd  %xmm1,%xmm0
+    3c01:	addpd  %xmm0,%xmm2
+
+Kernel-only GCC loop reports:
+bench.cpp:29:30: optimized: loop vectorized using 32 byte vectors
+bench.cpp:29:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:31:30: missed: couldn't vectorize loop
+bench.cpp:48:30: optimized: loop vectorized using 32 byte vectors
+bench.cpp:48:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:50:30: missed: couldn't vectorize loop
+bench.cpp:39:30: optimized: loop vectorized using 32 byte vectors
+bench.cpp:39:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:41:30: missed: couldn't vectorize loop
+bench.cpp:29:30: optimized: loop vectorized using 32 byte vectors
+bench.cpp:29:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:31:30: missed: couldn't vectorize loop
+bench.cpp:48:30: optimized: loop vectorized using 32 byte vectors
+bench.cpp:48:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:50:30: missed: couldn't vectorize loop
+bench.cpp:39:30: optimized: loop vectorized using 32 byte vectors
+bench.cpp:39:30: optimized: loop vectorized using 16 byte vectors
+bench.cpp:41:30: missed: couldn't vectorize loop
+
+float saxpy<float>(float*, float*, float*, unsigned long, unsigned long)
+  packed arithmetic instructions: 2
+    3625:	vfmadd213ps (%rdx,%rax,1),%ymm1,%ymm0
+    3677:	vfmadd132ps (%rdi,%r9,1),%xmm2,%xmm0
+
+float mul<float>(float*, float*, float*, unsigned long, unsigned long)
+  packed arithmetic instructions: 2
+    3775:	vmulps (%r9,%rax,1),%ymm1,%ymm0
+    37ba:	vmulps (%rdi,%r8,1),%xmm2,%xmm0
+
+float dot<float>(float*, float*, float*, unsigned long, unsigned long)
+  packed arithmetic instructions: 9
+    38b5:	vmulps (%rdi,%rax,1),%ymm4,%ymm1
+    38be:	vaddps %ymm1,%ymm0,%ymm0
+    38d0:	vaddps %xmm0,%xmm3,%xmm1
+    390e:	vfmadd231ps (%rsi,%rax,4),%xmm5,%xmm0
+
+double saxpy<double>(double*, double*, double*, unsigned long, unsigned long)
+  packed arithmetic instructions: 2
+    3a35:	vfmadd213pd (%rdx,%rax,1),%ymm1,%ymm0
+    3a7a:	vfmadd132pd (%rdi,%r8,1),%xmm3,%xmm0
+
+double mul<double>(double*, double*, double*, unsigned long, unsigned long)
+  packed arithmetic instructions: 2
+    3b35:	vmulpd (%rdi,%rax,1),%ymm1,%ymm0
+    3b6e:	vmulpd (%rsi,%rdx,1),%xmm2,%xmm0
+
+double dot<double>(double*, double*, double*, unsigned long, unsigned long)
+  packed arithmetic instructions: 7
+    3c25:	vmulpd (%rdi,%rax,1),%ymm4,%ymm1
+    3c2e:	vaddpd %ymm1,%ymm0,%ymm0
+    3c40:	vaddpd %xmm0,%xmm3,%xmm2
+    3c6a:	vfmadd231pd (%rsi,%rax,8),%xmm6,%xmm0
+
+  -ftree-loop-vectorize       		[disabled]
+  -ftree-slp-vectorize        		[disabled]

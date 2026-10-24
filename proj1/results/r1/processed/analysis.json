@@ -1,0 +1,22 @@
+{
+  "peak_f32": 86.4,
+  "peak_f64": 43.2,
+  "peak_note": "Ryzen 7 PRO 7735U: nominal 2.7 GHz base clock, observed 256-bit FMA; 8 f32 or 4 f64 lanes, 2 FLOPs/FMA, assumed 2 FMA/cycle from AMD Zen 3 guide 56665 sections 2.11\u20132.11.1 applied to Zen 3+. Single-core estimates; sustained clock/peak not measured. Sources: https://www.amd.com/en/products/processors/laptop/ryzen-pro/7000-series/amd-ryzen-7-pro-7735u.html and https://docs.amd.com/v/u/en-US/56665",
+  "figures": [
+    "speedup.png",
+    "throughput.png",
+    "locality.png",
+    "alignment_tail.png",
+    "stride.png",
+    "stride_speedup.png",
+    "dtype.png",
+    "negative.png",
+    "roofline_f32.png",
+    "roofline_f64.png"
+  ],
+  "warnings": [
+    "Hardware cycles unavailable for some/all rows; cycles per element is blank there."
+  ],
+  "error_bars": "sample SD; speedup uses first-order propagation of independent sample SDs; not confidence intervals",
+  "bandwidth": "measured logical SAXPY traffic, not hardware memory-controller bytes"
+}
