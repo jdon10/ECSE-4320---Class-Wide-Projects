@@ -1,4 +1,4 @@
-# ECSE 4320 — Advanced Computer Systems
+# ECSE 4320 - Advanced Computer Systems
 
 Completed class projects profiling SIMD, cache and memory, and SSD performance. Each project includes its implementation, experimental results, figures, and report.
 
